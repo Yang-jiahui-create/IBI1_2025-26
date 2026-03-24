@@ -1,4 +1,4 @@
-Hello, my name is Rob.
-I like drinking tea and eating chocolate biscuits.
-I am enjoying teaching IBI1 in person again 
-I am happy that I can push my repo from Visual Studio Code to GitHub
+Hello, my name is YangJiahui.
+I like programming, music, and games.
+I am enjoying learning IBI1 at Zhejiang University - University of Edinburgh Institute.
+I am happy that I learned how to use Git and GitHub for version control.

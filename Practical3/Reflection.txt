@@ -1,0 +1,18 @@
+Reflection on IBI1 Practical 3 - Version Control with Git and GitHub
+
+What I learned:
+- How to initialize a Git repository using git init
+- How to add and commit files using git add and git commit
+- How to view commit history using git log
+- How to create and switch branches using git branch and git checkout
+- How to merge branches using git merge
+- How to clone a repository from GitHub using git clone
+- How to push changes to GitHub using git push
+- How to fork a repository on GitHub
+
+Challenges I faced:
+- Encountered merge conflicts when merging branches
+- Had to resolve conflicts manually by editing the files
+- Understanding the difference between git add and git commit took some time
+
+Overall, this practical was very helpful in understanding version control and how to collaborate using Git and GitHub.
