@@ -2,104 +2,88 @@
 # IBI1 Practical - Creatinine Clearance Exercise
 
 # ============================================
-# 伪代码 (Pseudocode)
+# Pseudocode / 伪代码
 # ============================================
 """
-1. 获取用户输入：年龄、体重、性别、肌酐浓度
-2. 检查输入值是否在有效范围内：
-   - 年龄 < 100
-   - 体重在 20-80kg 之间
-   - 肌酐浓度 > 0
-3. 根据性别选择相应的计算公式常数
-   - 男性: 无调整系数
-   - 女性: × 0.85
-4. 应用 Cockcroft-Gault 方程计算 CrCl
-   CrCl = (140 - 年龄) × 体重 × (0.85 if 女性) / 肌酐浓度
-5. 输出计算结果
-6. 如果输入无效，应报错提示
+1. Get user input: age, weight, gender, creatine concentration (Cr)
+2. Check input values are within correct ranges:
+   - age < 100 years
+   - weight > 20kg and < 80kg  
+   - creatine concentration > 0 μmol/l and < 100 μmol/l
+   - gender = male or female
+3. If input is invalid, report error message about which variable needs correction
+4. If input is valid, calculate CrCl using Cockcroft-Gault Equation:
+   CrCl = (140 - age × weight) / (72 × Cr) × 0.85 (if female)
+5. Output the CrCl value
 """
 
 # ============================================
-# 6.2 方程与实现 (Implementation)
+# 7 Creatine Clearance Calculator
 # ============================================
 
-def calculate_creatinine_clearance(age, weight, gender, creatinine):
+# Cockcroft-Gault Equation: 
+# CrCl = (140 - age × weight) / (72 × Cr) × 0.85 (if female)
+
+def calculate_crcl(age, weight, gender, Cr):
     """
-    根据 Cockcroft-Gault 方程计算肌酐清除率 (CrCl)
+    Calculate Creatinine Clearance using Cockcroft-Gault Equation
     
-    参数:
-        age: 年龄 (岁)
-        weight: 体重 (kg)
-        gender: 性别 ("male" 或 "female")
-        creatinine: 肌酐浓度 (μmol/L)
+    Parameters:
+        age: age in years
+        weight: weight in kg
+        gender: "male" or "female"
+        Cr: creatine concentration in μmol/l
     
-    返回:
-        CrCl 值 (mL/min)
+    Returns:
+        CrCl value or error message
     """
     
-    # 输入验证 - 检查年龄
-    if age <= 0 or age >= 100:
-        return None, "错误: 年龄必须在 1-99 岁之间"
+    # 输入验证 - Check input values are within correct ranges
     
-    # 输入验证 - 检查体重
-    if weight < 20 or weight > 80:
-        return None, "错误: 体重必须在 20-80 kg 之间"
+    # Check age
+    if age >= 100:
+        return "Error: age needs corrected (must be < 100 years)"
     
-    # 输入验证 - 检查肌酐浓度
-    if creatinine <= 0:
-        return None, "错误: 肌酐浓度必须大于 0"
+    # Check weight
+    if weight <= 20:
+        return "Error: weight needs corrected (must be > 20kg)"
+    if weight >= 80:
+        return "Error: weight needs corrected (must be < 80kg)"
     
-    # 输入验证 - 检查性别
+    # Check creatine concentration
+    if Cr <= 0:
+        return "Error: creatine concentration needs corrected (must be > 0 μmol/l)"
+    if Cr >= 100:
+        return "Error: creatine concentration needs corrected (must be < 100 μmol/l)"
+    
+    # Check gender
     gender = gender.lower()
-    if gender not in ["male", "female", "m", "f"]:
-        return None, "错误: 性别必须是 'male' 或 'female'"
+    if gender not in ["male", "female"]:
+        return "Error: gender needs corrected (must be 'male' or 'female')"
     
-    # 计算 Cockcroft-Gault 方程
-    # CrCl = (140 - age) × weight × factor / creatinine
-    if gender in ["female", "f"]:
-        factor = 0.85  # 女性需要乘以 0.85
+    # 计算 CrCl
+    # CrCl = (140 - age × weight) / (72 × Cr) × 0.85 (if female)
+    if gender == "female":
+        crcl = (140 - age * weight) / (72 * Cr) * 0.85
     else:
-        factor = 1.0  # 男性不需要调整
+        crcl = (140 - age * weight) / (72 * Cr)
     
-    crcl = ((140 - age) * weight * factor) / creatinine
-    
-    return crcl, None
+    return crcl
 
 
-# 主程序 - 获取用户输入并计算
-if __name__ == "__main__":
-    print("=" * 50)
-    print("肌酐清除率 (CrCl) 计算器")
-    print("Cockcroft-Gault 方程")
-    print("=" * 50)
-    
-    try:
-        # 获取用户输入
-        age = float(input("请输入年龄 (岁): "))
-        weight = float(input("请输入体重 (kg): "))
-        gender = input("请输入性别 (male/female): ")
-        creatinine = float(input("请输入肌酐浓度 (μmol/L): "))
-        
-        # 计算 CrCl
-        crcl, error_message = calculate_creatinine_clearance(age, weight, gender, creatinine)
-        
-        if error_message:
-            # 如果有错误，输出错误信息
-            print(f"\n{error_message}")
-        else:
-            # 输出计算结果
-            print(f"\n计算结果:")
-            print(f"CrCl = {crcl:.2f} mL/min")
-            
-            # 提供参考解读
-            if crcl >= 90:
-                print("解读: 肾功能正常")
-            elif crcl >= 60:
-                print("解读: 肾功能轻度下降")
-            elif crcl >= 30:
-                print("解读: 肾功能中度下降")
-            else:
-                print("解读: 肾功能严重下降")
-    
-    except ValueError:
-        print("\n错误: 请输入有效的数字")
+# 主程序
+# 使用 str() 转换数字为字符串进行输出
+age = int(input("Enter age (years): "))
+weight = float(input("Enter weight (kg): "))
+gender = input("Enter gender (male/female): ")
+Cr = float(input("Enter creatine concentration (μmol/l): "))
+
+result = calculate_crcl(age, weight, gender, Cr)
+
+# 输出结果
+if isinstance(result, str):
+    # 如果是错误信息
+    print(result)
+else:
+    # 如果是计算结果
+    print("CrCl = " + str(result) + " mL/min")

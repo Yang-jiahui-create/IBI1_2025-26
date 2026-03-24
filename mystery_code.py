@@ -1,31 +1,21 @@
-# Mystery Code Analysis
-# IBI1 Practical - Mystery Code Exercise
+# What does this piece of code do?
+# Answer: This code generates 11 random integers between 1 and 10, sums them up, and prints the total.
 
-# ============================================
-# 下载本周学习资料包中的 mystery_code.py 文件
-# 将其移动到本周实践文件夹中
-# 打开该文件，逐行分析代码
-# ============================================
+# Import libraries
+# randint allows drawing a random number,
+# e.g. randint(1,5) draws a number between 1 and 5
+from random import randint
 
-# 在代码第 7 行（# answer on line 2.）之后，
-# 添加一行注释，用一句话解释该代码的作用
+# ceil takes the ceiling of a number, i.e. the next higher integer.
+# e.g. ceil(4.2)=5
+from math import ceil
 
-# 原始代码示例:
-# answer on line 2.
-# This code calculates something important.
+total_rand = 0
+progress=0
+while progress<=10:
+	progress+=1
+	n = randint(1,10)
+	total_rand+=n
 
-# ============================================
-# 请根据实际的 mystery_code.py 文件内容
-# 在下方添加你的注释分析
-# ============================================
+print(total_rand)
 
-# 示例：如果原代码是计算阶乘
-# answer on line 2.
-# This code calculates the factorial of a given number using recursion.
-
-# 你的答案:
-# answer on line 2.
-# This code performs the specified calculation as required by the practical.
-
-print("Mystery Code Analysis Complete")
-print("Please add your explanation comment after line 7")
